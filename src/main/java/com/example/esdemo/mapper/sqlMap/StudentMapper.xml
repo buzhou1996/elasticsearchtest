@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.esdemo.mapper.StudentMapper">
+    <select id="findAll" resultType="com.example.esdemo.entity.Student">
+        SELECT * FROM student
+    </select>
+
+    <select id="selectMaxSize" resultType="int">
+        select MAX(id) from student
+    </select>
+</mapper>
