@@ -5,7 +5,17 @@
         SELECT * FROM student
     </select>
 
+    <select id="findAll2" resultType="com.example.esdemo.entity.StudentDto">
+        SELECT * FROM student
+    </select>
+
     <select id="selectMaxSize" resultType="int">
         select MAX(id) from student
     </select>
+
+    <select id="getNameList" resultType="java.lang.String">
+        select stu_name from student
+    </select>
+
+
 </mapper>

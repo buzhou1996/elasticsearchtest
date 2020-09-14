@@ -12,4 +12,6 @@ public interface StudentService {
     String AddDataToES();
 
     List<Map> FindByWord(String word);
+
+    String updateIndex();
 }
