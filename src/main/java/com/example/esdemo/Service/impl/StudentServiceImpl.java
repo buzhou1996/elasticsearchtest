@@ -176,20 +176,22 @@ public class StudentServiceImpl implements StudentService {
         /*if (word==null||word.length()==0){
 
         }*/
+
+        ESConfig esConfig = new ESConfig();
+        int maxSize = studentMapper.selectMaxSize();
+        List<Map> studentList = new ArrayList<>();
         //判断是否全汉字
         Boolean flag = InitailOrderUtils.checkChineseWord(word);
         //汉字
         if (flag){
+            //直接走模糊查询
 
         }else {
             //非全汉字
-            //查询pinyin字段和首字母的字段两个字段
+            //查询pinyin字段和首字母的字段两个字段，根据
+
 
         }
-        //先模糊查询
-        ESConfig esConfig = new ESConfig();
-        int maxSize = studentMapper.selectMaxSize();
-        List<Map> studentList = new ArrayList<>();
         try {
             /*TransportClient client = esConfig.getTransportClient();
             QueryBuilder fuzzyQueryBuilder = QueryBuilders.fuzzyQuery("interests", "豆豆");

@@ -9,6 +9,9 @@ import org.elasticsearch.index.reindex.BulkByScrollResponse;
 import org.elasticsearch.index.reindex.DeleteByQueryAction;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.aggregations.AggregationBuilder;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.metrics.max.Max;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -184,6 +187,50 @@ public class CRUDtwiceController {
             e.printStackTrace();
         }
         return response;
+    }
+
+
+    //聚合查询
+    public void juhe(){
+        ESConfig esConfig = new ESConfig();
+        try {
+            TransportClient client = esConfig.getTransportClient();
+            AggregationBuilder agg = AggregationBuilders.max("ageMax").field("age");
+            SearchResponse response = client.prepareSearch("lib4").addAggregation(agg).get();
+            Max max = response.getAggregations().get("ageMax");
+            System.out.println(max);
+            System.out.println(max.toString());
+            System.out.println(max.getValue());
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //query string查询
+    public void queryString(){
+        ESConfig esConfig = new ESConfig();
+        try {
+            TransportClient client = esConfig.getTransportClient();
+            //全文搜索
+            QueryBuilder queryBuilder = QueryBuilders.commonTermsQuery("name","五");
+            //严格条件搜索
+            QueryBuilder queryBuilder1 = QueryBuilders.queryStringQuery("+五  -段");
+            //非严格条件搜索
+            QueryBuilder queryBuilder2 = QueryBuilders.simpleQueryStringQuery("+五  -段");
+
+
+            SearchResponse response = client.prepareSearch("lib4")
+                    .setQuery(queryBuilder)
+                    .get();
+
+            SearchHits hits = response.getHits();
+            for (SearchHit hit : hits) {
+                System.out.println(hit.getSourceAsString());
+            }
+        } catch (UnknownHostException e) {
+            System.out.println("连接客户端发生错误，错误原因："+e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 
