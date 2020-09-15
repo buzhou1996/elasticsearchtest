@@ -26,11 +26,17 @@ public class ESController {
 
     //查询接口
     @RequestMapping("searchStudentMsg")
-    public List<Map> SearchStudentMsg(@RequestBody String data){
+    public List<Map<String, Object>> SearchStudentMsg(@RequestBody String data){
         JSONObject jsonObject = JSONObject.parseObject(data);
         System.out.println("请求报文："+data);
-        List<Map> studentList = studentService.FindByWord(jsonObject.getString("word"));
+        List<Map<String, Object>> studentList = studentService.testSearchAll(jsonObject.getString("word"));
         return studentList;
+    }
+
+
+    @RequestMapping("updateES")
+    private String updateES(){
+        return studentService.upsertToTWOIndex();
     }
 
 }

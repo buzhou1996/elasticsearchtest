@@ -23,7 +23,7 @@ public class InitailOrderUtils {
 
 
 
-    //
+    //获取汉字全拼
     public static String getPingYin(String inputString) {
         if (!StringUtils.isBlank(inputString)) {
             HanyuPinyinOutputFormat format = new HanyuPinyinOutputFormat();
@@ -50,8 +50,34 @@ public class InitailOrderUtils {
     }
 
 
+
+    //获取汉字首字母
+    public static String getPinYinHeadChar(String str) {
+        String convert = "";
+        for (int i = 0; i < str.length(); i++)
+        {
+            char word = str.charAt(i);
+            String[] pinYinArray = PinyinHelper.toHanyuPinyinStringArray(word);
+            if (pinYinArray != null)
+            {
+                convert += pinYinArray[0].charAt(0);
+
+            }
+            else
+            {
+                convert += word;
+            }
+        }
+        return convert;
+    }
+
+
+
+
+
+
     public static Boolean checkChineseWord(String realName) {
-        Boolean flag = false;
+        Boolean flag = true;
         if (StringUtils.isEmpty(realName)) {
             throw new RuntimeException("参数为空");
         }
@@ -59,7 +85,7 @@ public class InitailOrderUtils {
         for (char c : ch) {
             if (c < 0x4E00 || c > 0x9FA5) {
                 //非全汉字
-                flag = true;
+                flag = false;
             }
         }
         return flag;

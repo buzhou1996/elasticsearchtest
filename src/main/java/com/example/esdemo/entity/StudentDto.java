@@ -18,5 +18,9 @@ public class StudentDto {
     private String interests;
 
 
-    private String pinyin;
+    private String namePinYin;
+    private String namePinYinHeader;
+    private String aliasPinYin;
+    private String aliasPinYinHeader;
+
 }

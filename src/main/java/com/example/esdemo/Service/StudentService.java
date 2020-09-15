@@ -14,4 +14,10 @@ public interface StudentService {
     List<Map> FindByWord(String word);
 
     String updateIndex();
+
+    //20200915 更新用
+    String upsertToTWOIndex();
+
+    //20200915 查询用
+    List<Map<String,Object>> testSearchAll(String word);
 }
